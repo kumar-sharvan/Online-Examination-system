@@ -14,7 +14,9 @@ const Layout = ({ children }) => {
     <div className="d-flex flex-column min-vh-100">
       <header className="bg-primary text-white p-3 mb-4 shadow-sm">
         <div className="container d-flex justify-content-between align-items-center">
-          <h1 className="h4 mb-0">Online Examination System</h1>
+          <a className="h3 mb-0 text-decoration-none" href="/">
+            Online Examination System
+          </a>
           <nav>
             {user ? (
               <>
