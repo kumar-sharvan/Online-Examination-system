@@ -7,6 +7,7 @@ const Login = () => {
     email: "",
     password: "",
   });
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -18,12 +19,14 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    setLoading(true);
     const result = await login(credentials);
     if (result.success) {
       navigate("/student");
     } else {
       setError(result.error);
     }
+    setLoading(false);
   };
 
   return (
@@ -71,8 +74,8 @@ const Login = () => {
             />
           </div>
 
-          <button type="submit" className="btn btn-success w-100">
-            Login
+          <button type="submit" className="btn btn-success w-100 fw-bold">
+            {loading ? "Loading..." : "Login"}
           </button>
         </form>
 
