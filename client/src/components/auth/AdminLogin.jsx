@@ -7,6 +7,7 @@ const AdminLogin = () => {
     username: "",
     password: "",
   });
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -18,11 +19,18 @@ const AdminLogin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-    const result = await login(credentials, true);
-    if (result.success) {
-      navigate("/admin");
-    } else {
-      setError(result.error);
+    setLoading(true);
+    try {
+      const result = await login(credentials, true);
+      if (result.success) {
+        navigate("/admin");
+      } else {
+        setError(result.error);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -65,8 +73,8 @@ const AdminLogin = () => {
             />
           </div>
 
-          <button type="submit" className="btn btn-primary w-100">
-            Login
+          <button type="submit" className="btn btn-primary w-100 fw-bold">
+            {loading ? "Loading..." : "Login"}
           </button>
         </form>
 
